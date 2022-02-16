@@ -14,9 +14,11 @@
   "author": "Olya Surojakova <olyasuroyakova@mail.ru>",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "config": "^3.3.7",
     "express": "^4.17.2",
-    "mongoose": "^6.2.1"
+    "mongoose": "^6.2.1",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",

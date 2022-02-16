@@ -1,0 +1,25 @@
+{
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "Mern stack",
+  "main": "App.js",
+  "scripts": {
+    "start": "node App.js",
+    "server": "nodemon App.js"
+  },
+  "keywords": [
+    "mern",
+    "react"
+  ],
+  "author": "Olya Surojakova <olyasuroyakova@mail.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.7",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  }
+}

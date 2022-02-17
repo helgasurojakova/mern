@@ -5,7 +5,9 @@
   "main": "App.js",
   "scripts": {
     "start": "node App.js",
-    "server": "nodemon App.js"
+    "server": "nodemon App.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "mern",
@@ -17,9 +19,9 @@
     "bcryptjs": "^2.4.3",
     "config": "^3.3.7",
     "express": "^4.17.2",
+    "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.2.1",
-    "validator": "^13.7.0"
+    "mongoose": "^6.2.1"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",

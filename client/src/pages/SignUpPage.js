@@ -27,7 +27,7 @@ const SignUpPage = () => {
     })
 
     useEffect(() => {
-        message(error)
+        message(error, 'error')
         clearError()
     }, [error, message, clearError])
 
@@ -39,7 +39,7 @@ const SignUpPage = () => {
         e.preventDefault()
         try {
             const data = await request('/api/auth/register', 'POST', {...form})
-            console.log(data, 'data')
+            message(data.message, 'success')
         } catch (e) {}
     }
 

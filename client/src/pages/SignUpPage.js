@@ -12,17 +12,24 @@ import {
 
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import {useHttp} from "../hooks/http.hook";
+import {useMessage} from "../hooks/message.hook";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 const SignUpPage = () => {
+    const message = useMessage();
     const [showPassword, setShowPassword] = useState(false);
     const handleShowClick = () => setShowPassword(!showPassword);
-    const {loading, request} = useHttp()
+    const {loading, request, error, clearError} = useHttp()
     const [form, setForm] = useState({
         email: '', password: ''
     })
+
+    useEffect(() => {
+        message(error)
+        clearError()
+    }, [error, message, clearError])
 
     const changeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value })
@@ -104,6 +111,7 @@ const SignUpPage = () => {
                                 colorScheme="teal"
                                 width="full"
                                 onClick={registerHandler}
+                                disabled={loading}
                             >
                                 Sign Up
                             </Button>

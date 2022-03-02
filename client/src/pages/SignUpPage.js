@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Box,
     Input,
@@ -7,34 +7,33 @@ import {
     Button,
     InputGroup,
     Flex,
-    Avatar, Heading, FormControl, InputLeftElement, FormHelperText, Link, chakra,
+    Heading, FormControl, InputLeftElement, chakra,
 } from "@chakra-ui/react";
 
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import {useHttp} from "../hooks/http.hook";
+
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-
-const AuthPage = () => {
+const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const handleShowClick = () => setShowPassword(!showPassword);
-
     const {loading, request} = useHttp()
     const [form, setForm] = useState({
         email: '', password: ''
-    });
+    })
 
-    const registerHandler = async () => {
-        try {
-            console.log(form, 'FORM')
-            const data = await request('/register', 'POST', JSON.stringify({...form}))
-            console.log(data, 'data')
-        } catch (e) {}
+    const changeHandler = event => {
+        setForm({ ...form, [event.target.name]: event.target.value })
     }
 
-    const changeHandler = (event) => {
-        setForm({...form, [event.target.name]: event.target.value})
+    const registerHandler = async (e) => {
+        e.preventDefault()
+        try {
+            const data = await request('/api/auth/register', 'POST', {...form})
+            console.log(data, 'data')
+        } catch (e) {}
     }
 
     return (
@@ -52,7 +51,6 @@ const AuthPage = () => {
                 justifyContent="center"
                 alignItems="center"
             >
-                <Avatar bg="teal.500" />
                 <Heading color="teal.400">Welcome</Heading>
                 <Box minW={{ base: "90%", md: "468px" }}>
                     <form>
@@ -68,12 +66,11 @@ const AuthPage = () => {
                                         pointerEvents="none"
                                         children={<CFaUserAlt color="gray.300" />}
                                     />
-                                    <Input
-                                        type="email"
-                                        placeholder="Email address"
-                                        id="email"
-                                        name="email"
-                                        onChange={changeHandler}
+                                    <Input type="email"
+                                           placeholder="Email address"
+                                           name="email"
+                                           value={form.email}
+                                           onChange={changeHandler}
                                     />
                                 </InputGroup>
                             </FormControl>
@@ -87,8 +84,10 @@ const AuthPage = () => {
                                     <Input
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Password"
-                                        id="password"
                                         name="password"
+                                        autoComplete="on"
+                                        minLength={6}
+                                        value={form.password}
                                         onChange={changeHandler}
                                     />
                                     <InputRightElement width="4.5rem">
@@ -97,9 +96,6 @@ const AuthPage = () => {
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>
-                                <FormHelperText textAlign="right">
-                                    <Link>Forgot password?</Link>
-                                </FormHelperText>
                             </FormControl>
                             <Button
                                 borderRadius={0}
@@ -108,22 +104,15 @@ const AuthPage = () => {
                                 colorScheme="teal"
                                 width="full"
                                 onClick={registerHandler}
-                                disabled={loading}
                             >
-                                Login
+                                Sign Up
                             </Button>
                         </Stack>
                     </form>
                 </Box>
             </Stack>
-            <Box>
-                New to us?{" "}
-                <Link color="teal.500" href="/signup">
-                    Sign Up
-                </Link>
-            </Box>
         </Flex>
     );
 };
 
-export default AuthPage;
+export default SignUpPage;

@@ -4,6 +4,7 @@ import LinksPage from "./pages/LinksPage";
 import CreatePage from "./pages/CreatePage";
 import DetailPage from "./pages/DetailPage";
 import AuthPage from "./pages/AuthPage";
+import SignUpPage from "./pages/SignUpPage";
 
 export const useRoutes = isAuthenticated => {
     if (isAuthenticated) {
@@ -20,6 +21,7 @@ export const useRoutes = isAuthenticated => {
     return (
         <Routes>
             <Route path={"*"} element={<AuthPage/>} exact={true}/>
+            <Route path={"/signup"} element={<SignUpPage/>} exact={true}/>
         </Routes>
     )
 }

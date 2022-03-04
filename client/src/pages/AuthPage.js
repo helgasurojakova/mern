@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Box,
     Input,
@@ -12,24 +12,30 @@ import {
 
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import {useHttp} from "../hooks/http.hook";
+import {useMessage} from "../hooks/message.hook";
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 
 const AuthPage = () => {
+    const message = useMessage();
     const [showPassword, setShowPassword] = useState(false);
     const handleShowClick = () => setShowPassword(!showPassword);
-
-    const {loading, request} = useHttp()
+    const {loading, request, error, clearError} = useHttp()
     const [form, setForm] = useState({
         email: '', password: ''
     });
 
-    const registerHandler = async () => {
+    useEffect(() => {
+        message(error, 'error')
+        clearError()
+    }, [error, message, clearError])
+
+    const loginHandler = async (e) => {
+        e.preventDefault()
         try {
             console.log(form, 'FORM')
-            const data = await request('/register', 'POST', JSON.stringify({...form}))
-            console.log(data, 'data')
+            const data = await request('/api/auth/login', 'POST', {...form})
         } catch (e) {}
     }
 
@@ -107,7 +113,7 @@ const AuthPage = () => {
                                 variant="solid"
                                 colorScheme="teal"
                                 width="full"
-                                onClick={registerHandler}
+                                onClick={loginHandler}
                                 disabled={loading}
                             >
                                 Login

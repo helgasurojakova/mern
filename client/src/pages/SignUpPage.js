@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react'
 import {
     Box,
     Input,
@@ -8,14 +8,14 @@ import {
     InputGroup,
     Flex,
     Heading, FormControl, InputLeftElement, chakra,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 
-import { FaUserAlt, FaLock } from "react-icons/fa";
-import {useHttp} from "../hooks/http.hook";
-import {useMessage} from "../hooks/message.hook";
+import { FaUserAlt, FaLock } from "react-icons/fa"
+import {useHttp} from "../hooks/http.hook"
+import {useMessage} from "../hooks/message.hook"
 
-const CFaUserAlt = chakra(FaUserAlt);
-const CFaLock = chakra(FaLock);
+const CFaUserAlt = chakra(FaUserAlt)
+const CFaLock = chakra(FaLock)
 
 const SignUpPage = () => {
     const message = useMessage();
@@ -40,6 +40,9 @@ const SignUpPage = () => {
         try {
             const data = await request('/api/auth/register', 'POST', {...form})
             message(data.message, 'success')
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 2000)
         } catch (e) {}
     }
 

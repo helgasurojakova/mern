@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react'
 import {
     Box,
     Input,
@@ -13,11 +13,14 @@ import {
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import {useHttp} from "../hooks/http.hook";
 import {useMessage} from "../hooks/message.hook";
+import {AuthContext} from "../context/AuthContext";
+import {Route} from "react-router-dom";
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 
 const AuthPage = () => {
+    const auth = useContext(AuthContext)
     const message = useMessage();
     const [showPassword, setShowPassword] = useState(false);
     const handleShowClick = () => setShowPassword(!showPassword);
@@ -34,8 +37,8 @@ const AuthPage = () => {
     const loginHandler = async (e) => {
         e.preventDefault()
         try {
-            console.log(form, 'FORM')
             const data = await request('/api/auth/login', 'POST', {...form})
+            auth.login(data.token, data.userId)
         } catch (e) {}
     }
 

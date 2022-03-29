@@ -1,14 +1,16 @@
 import React, {useContext} from 'react'
-import {AuthContext} from "../context/AuthContext";
+import {AuthContext} from "../context/AuthContext"
 import {
     Box, Button,
     Flex,
     HStack,
     Link,
     useColorModeValue
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
+import logo from "../img/logo.png"
+import logout_img from "../img/logout.png"
 
-const Links = ['Create', 'Links'];
+const Links = ['Create', 'Links']
 const NavLink = ({ children }) => (
     <Link
         px={2}
@@ -21,7 +23,7 @@ const NavLink = ({ children }) => (
         href={children}>
         {children}
     </Link>
-);
+)
 
 const Navbar = () => {
     const auth = useContext(AuthContext)
@@ -30,12 +32,13 @@ const Navbar = () => {
         auth.logout()
         window.location.href = '/'
     }
+    const state = {date: new Date()}
     return (
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
                 <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>Logo</Box>
+                        <img src={logo} alt="Logo" height={40} width={40}/>
                         <HStack
                             as={'nav'}
                             spacing={4}
@@ -46,7 +49,11 @@ const Navbar = () => {
                         </HStack>
                     </HStack>
                     <Flex alignItems={'center'}>
-                        <Button onClick={logoutHandler}>Logout</Button>
+                        <p>{state.date.toLocaleDateString()}</p>
+                        <Button onClick={logoutHandler}>
+                            <img src={logout_img} height={20} width={20} hspace={5}/>
+                            Logout
+                        </Button>
                     </Flex>
                 </Flex>
             </Box>

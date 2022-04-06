@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react"
 import logo from "../img/logo.png"
 import logout_img from "../img/logout.png"
+import {useNavigate} from "react-router-dom"
 
 const Links = ['Create', 'Links']
 const NavLink = ({ children }) => (
@@ -26,13 +27,15 @@ const NavLink = ({ children }) => (
 )
 
 const Navbar = () => {
+    const navigate = useNavigate()
     const auth = useContext(AuthContext)
     const logoutHandler = (e) => {
         e.preventDefault()
         auth.logout()
-        window.location.href = '/'
+        navigate('/')
     }
     const state = {date: new Date()}
+    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     return (
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -49,8 +52,8 @@ const Navbar = () => {
                         </HStack>
                     </HStack>
                     <Flex alignItems={'center'}>
-                        <p>{state.date.toLocaleDateString()}</p>
-                        <Button onClick={logoutHandler}>
+                        <p>{state.date.getDate() + ' ' + month[state.date.getMonth()] + ' ' + state.date.getFullYear()}</p>
+                        <Button onClick={logoutHandler} marginLeft={5}>
                             <img src={logout_img} height={20} width={20} hspace={5}/>
                             Logout
                         </Button>

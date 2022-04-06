@@ -14,7 +14,6 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 import {useHttp} from "../hooks/http.hook";
 import {useMessage} from "../hooks/message.hook";
 import {AuthContext} from "../context/AuthContext";
-import {Route} from "react-router-dom";
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
@@ -82,6 +81,7 @@ const AuthPage = () => {
                                         placeholder="Email address"
                                         id="email"
                                         name="email"
+                                        value={form.email}
                                         onChange={changeHandler}
                                     />
                                 </InputGroup>
@@ -98,6 +98,7 @@ const AuthPage = () => {
                                         placeholder="Password"
                                         id="password"
                                         name="password"
+                                        value={form.password}
                                         onChange={changeHandler}
                                     />
                                     <InputRightElement width="4.5rem">

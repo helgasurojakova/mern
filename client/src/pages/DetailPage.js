@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {Loader} from "../components/Loader"
 
 const DetailPage = () => {
+    const [link, setLink] = useState(null)
     return (
         <div>
-            <h1>DetailPage</h1>
+            <Loader/>
         </div>
     );
 };

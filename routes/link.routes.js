@@ -5,7 +5,7 @@ const Link = require('../models/Link')
 const auth = require('../middleware/auth.middleware')
 const router = Router()
 
-router.post('/generate', async (req, res) => {
+router.post('/generate', auth, async (req, res) => {
     try {
         const baseUrl = config.get('baseUrl')
         const {from} = req.body

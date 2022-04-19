@@ -9,22 +9,18 @@ import {
 } from "@chakra-ui/react"
 import logo from "../img/logo.png"
 import logout_img from "../img/logout.png"
-import {useNavigate} from "react-router-dom"
+import {NavLink, useNavigate} from "react-router-dom"
 
-const Links = ['Create', 'Links']
-const NavLink = ({ children }) => (
-    <Link
-        px={2}
-        py={1}
-        rounded={'md'}
-        _hover={{
-            textDecoration: 'none',
-            bg: useColorModeValue('gray.200', 'gray.700'),
-        }}
-        href={children}>
-        {children}
-    </Link>
-)
+const Links = [
+    {
+        name: 'Create',
+        to: '/create',
+    },
+    {
+        name: 'Links',
+        to: '/links',
+    }
+]
 
 const Navbar = () => {
     const navigate = useNavigate()
@@ -47,7 +43,14 @@ const Navbar = () => {
                             spacing={4}
                             display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
-                                <NavLink key={link}>{link}</NavLink>
+                                <NavLink
+                                    style={({ isActive }) => ({
+                                        padding: 5,
+                                        borderRadius: '6px',
+                                        color: isActive ? '#fff' : null,
+                                        background: isActive ? 'teal' : null,
+                                    })}
+                                    key={link.to} to={link.to}>{link.name}</NavLink>
                             ))}
                         </HStack>
                     </HStack>

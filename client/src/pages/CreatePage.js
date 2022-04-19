@@ -15,7 +15,6 @@ const CreatePage = () => {
             try {
                 const data = await request('/api/link/generate', 'POST', {from: link},
                 {Authorization: `Bearer ${auth.token}`})
-                console.log(data, 'data')
                 navigate(`/detail/${data.link._id}`)
             } catch (e) {}
         }
